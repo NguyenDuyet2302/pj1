@@ -46,6 +46,9 @@ if (isset($_GET['pageLayout'])) {
         case 'history':
             include_once('history.php');
             break;
+        case 'order_detail':
+            include_once('order_detail.php');
+            break;
         case 'product_detail':
             if (isset($_GET['book_id'])) {
                 include_once('product_detail.php');
