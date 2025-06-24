@@ -33,9 +33,19 @@ $query_orders = mysqli_query($connect, $sql_orders);
                         <td><?= date("d/m/Y H:i:s", strtotime($order['order_date'])) ?></td>
                         <td>
                             <?php
-                            if ($order['order_status'] == 6) echo '<span class="badge bg-danger">Đã hủy</span>';
-                            elseif ($order['order_status'] == 1) echo '<span class="badge bg-warning">Chờ xác nhận</span>';
-                            else echo '<span class="badge bg-success">Hoàn tất</span>';
+                            if ($order['order_status'] == 6) {
+                                echo '<span class="badge bg-danger">Đã hủy</span>';
+                            } elseif ($order['order_status'] == 1) {
+                                echo '<span class="badge bg-warning">Chờ xác nhận</span>';
+                            } elseif ($order['order_status'] == 2) {
+                                echo '<span class="badge bg-warning">Đã xác nhận</span>';
+                            } elseif ($order['order_status'] == 3) {
+                                echo '<span class="badge bg-warning">Đang vận chuyển</span>';
+                            } elseif ($order['order_status'] == 4) {
+                                echo '<span class="badge bg-warning">Đã giao hàng</span>';
+                            } else {
+                                echo '<span class="badge bg-success">Hoàn tất</span>';
+                            }
                             ?>
                         </td>
                         <td>

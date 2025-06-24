@@ -2,15 +2,23 @@
 include_once('header.php');
 $order_id = $_GET['order_id'];
 
+// Cập nhật trạng thái nếu người dùng xác nhận đã nhận hàng
+if (isset($_POST['confirm_received'])) {
+    $update_status = "UPDATE orders SET order_status = 5 WHERE order_id = '$order_id'";
+    mysqli_query($connect, $update_status);
+}
+
+// Lấy thông tin đơn hàng
+$sql_order = "SELECT order_date, order_status FROM orders WHERE order_id = '$order_id'";
+$query_order = mysqli_query($connect, $sql_order);
+$order_info = mysqli_fetch_assoc($query_order);
+
+// Lấy chi tiết các sản phẩm trong đơn hàng
 $sql_detail = "SELECT order_details.*, books.title, books.image_url, books.price 
                FROM order_details 
                JOIN books ON order_details.book_id = books.book_id 
                WHERE order_id = '$order_id'";
 $query_detail = mysqli_query($connect, $sql_detail);
-
-$sql_order_date = "SELECT order_date FROM orders WHERE order_id = '$order_id'";
-$query_date = mysqli_query($connect, $sql_order_date);
-$order_info = mysqli_fetch_assoc($query_date);
 ?>
 
 <div class="container my-5">
@@ -38,6 +46,14 @@ $order_info = mysqli_fetch_assoc($query_date);
         <?php } ?>
         </tbody>
     </table>
+
+    <?php if ($order_info['order_status'] == 4) { ?>
+        <form method="post">
+            <button type="submit" name="confirm_received" class="btn btn-success mt-3">
+                Đã nhận hàng
+            </button>
+        </form>
+    <?php } ?>
 </div>
 
 <?php include_once('footer.php'); ?>

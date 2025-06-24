@@ -48,7 +48,7 @@ $result = $conn->query($sql);
                 <td><?= number_format($row['price']) ?> VNĐ</td>
                 <td><?= number_format($row['old_price']) ?> VNĐ</td>
                 <td><?= $row['description'] ?></td>
-                <td><img src="Admin/images/<?= htmlspecialchars($row['image_url']) ?>" alt="Hình ảnh sản phẩm"></td>
+                <td><img src="asset/img/<?= $row['image_url'] ?>" alt="Hình ảnh sản phẩm"></td>
                 <td>
                     <button class="btn btn-danger btn-sm">Xóa</button>
                 </td>
