@@ -3,7 +3,7 @@ include_once('header.php');
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: layout_user.php?pageLayout=login");
     exit();
 }
 

@@ -23,28 +23,28 @@ if (!$customer_info) {
 } else {
     $full_name = htmlspecialchars($customer_info['fullname'] ?? '');
     $phone = htmlspecialchars($customer_info['contact_info'] ?? '');
-    $email = htmlspecialchars($customer_info['mail'] ?? '');
+    $email = htmlspecialchars($customer_info['email'] ?? '');
     $address = htmlspecialchars($customer_info['shipping_address'] ?? '');
 }
 
 
-// Kiểm tra nếu form được gửi
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $full_name = mysqli_real_escape_string($connect, $_POST['customer_name']);
-    $email = mysqli_real_escape_string($connect, $_POST['customer_email']);
-    $phone = mysqli_real_escape_string($connect, $_POST['customer_phone']);
-    $address = mysqli_real_escape_string($connect, $_POST['customer_address']);
-
-    // Cập nhật thông tin vào cơ sở dữ liệu
-    $sql_update = "UPDATE customers SET customer_name='$full_name', customer_phone='$phone', customer_email='$email', customer_address='$address' WHERE user_name='$username'";
-
-    if (mysqli_query($connect, $sql_update)) {
-        header("Location: profile.php?success=1");
-        exit();
-    } else {
-        echo "Lỗi cập nhật: " . mysqli_error($connect);
-    }
-}
+//// Kiểm tra nếu form được gửi
+//if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//    $full_name = mysqli_real_escape_string($connect, $_POST['customer_name']);
+//    $email = mysqli_real_escape_string($connect, $_POST['customer_email']);
+//    $phone = mysqli_real_escape_string($connect, $_POST['customer_phone']);
+//    $address = mysqli_real_escape_string($connect, $_POST['customer_address']);
+//
+//    // Cập nhật thông tin vào cơ sở dữ liệu
+//    $sql_update = "UPDATE customers SET fullname='$full_name', contact_info='$phone', email='$email', shipping_address='$address' WHERE user_name='$username'";
+//
+//    if (mysqli_query($connect, $sql_update)) {
+//        header("Location: profile.php?success=1");
+//        exit();
+//    } else {
+//        echo "Lỗi cập nhật: " . mysqli_error($connect);
+//    }
+//}
 ?>
 
 <div class="container mt-5">
@@ -55,23 +55,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="card-body">
             <form method="POST">
                 <div class="mb-3">
-                    <label for="customer_name" class="form-label">Họ tên</label>
-                    <input type="text" class="form-control" name="customer_name" value="<?= htmlspecialchars($full_name) ?>" required>
+                    <label for="fullname" class="form-label">Họ tên</label>
+                    <input type="text" class="form-control" name="fullname" value="<?= htmlspecialchars($full_name) ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="customer_phone" class="form-label">Số điện thoại</label>
-                    <input type="text" class="form-control" name="customer_phone" value="<?= htmlspecialchars($phone) ?>" required>
+                    <label for="contact_info" class="form-label">Số điện thoại</label>
+                    <input type="text" class="form-control" name="contact_info" value="<?= htmlspecialchars($phone) ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="customer_email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="customer_email" value="<?= htmlspecialchars($email) ?>" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($email) ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="customer_address" class="form-label">Địa chỉ</label>
-                    <textarea class="form-control" name="customer_address" rows="3" required><?= htmlspecialchars($address) ?></textarea>
+                    <label for="shipping_address" class="form-label">Địa chỉ</label>
+                    <textarea class="form-control" name="shipping_address" rows="3" required><?= htmlspecialchars($address) ?></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                <a href="layout_user.php" class="btn btn-secondary">Quay lại</a>
+<!--                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>-->
+<!--                <a href="layout_user.php" class="btn btn-secondary">Quay lại</a>-->
             </form>
         </div>
     </div>

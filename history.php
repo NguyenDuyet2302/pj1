@@ -38,11 +38,11 @@ $query_orders = mysqli_query($connect, $sql_orders);
                             } elseif ($order['order_status'] == 1) {
                                 echo '<span class="badge bg-warning">Chờ xác nhận</span>';
                             } elseif ($order['order_status'] == 2) {
-                                echo '<span class="badge bg-warning">Đã xác nhận</span>';
+                                echo '<span class="badge bg-info">Đã xác nhận</span>';
                             } elseif ($order['order_status'] == 3) {
-                                echo '<span class="badge bg-warning">Đang vận chuyển</span>';
+                                echo '<span class="badge bg-info">Đang vận chuyển</span>';
                             } elseif ($order['order_status'] == 4) {
-                                echo '<span class="badge bg-warning">Đã giao hàng</span>';
+                                echo '<span class="badge bg-info">Đã giao hàng</span>';
                             } else {
                                 echo '<span class="badge bg-success">Hoàn tất</span>';
                             }

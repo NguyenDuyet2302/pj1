@@ -8,7 +8,7 @@ if (isset($_GET['book_id']) && isset($_GET['qtt'])) {
 
     // Kiểm tra nếu sản phẩm đã có trong giỏ hàng
     if (isset($_SESSION['cart'][$book_id])) {
-        $_SESSION['cart'][$book_id] = $qtt; // Cập nhật số lượng thay vì cộng dồn
+        $_SESSION['cart'][$book_id] += $qtt; // Cập nhật số lượng thay vì cộng dồn
     } else {
         $_SESSION['cart'][$book_id] = $qtt;
     }
