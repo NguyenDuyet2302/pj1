@@ -53,18 +53,20 @@ $query_detail = mysqli_query($connect, $sql_detail);
         </tbody>
     </table>
 
-    <?php if ($order_info['order_status'] == 1 || $order_info['order_status'] == 4) { ?>
+
         <form method="post">
-            <?php if ($order_info['order_status'] == 4) { ?>
+            <?php if ($order_info['order_status'] == 1 || $order_info['order_status'] == 2) { ?>
+                <button type="submit" name="cancel_order" class="btn btn-danger mt-3 ms-2" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
+                    Hủy đơn hàng
+                </button>
+            <?php } elseif ($order_info['order_status'] == 4) { ?>
                 <button type="submit" name="confirm_received" class="btn btn-success mt-3">
                     Đã nhận hàng
                 </button>
             <?php } ?>
-                <button type="submit" name="cancel_order" class="btn btn-danger mt-3 ms-2" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
-                    Hủy đơn hàng
-                </button>
+
         </form>
-    <?php } ?>
+
 </div>
 
 <?php include_once('footer.php'); ?>
