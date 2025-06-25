@@ -8,6 +8,12 @@ if (isset($_POST['confirm_received'])) {
     mysqli_query($connect, $update_status);
 }
 
+// Cập nhật trạng thái nếu người dùng hủy đơn hàng
+if (isset($_POST['cancel_order'])) {
+    $update_status = "UPDATE orders SET order_status = 6 WHERE order_id = '$order_id'";
+    mysqli_query($connect, $update_status);
+}
+
 // Lấy thông tin đơn hàng
 $sql_order = "SELECT order_date, order_status FROM orders WHERE order_id = '$order_id'";
 $query_order = mysqli_query($connect, $sql_order);
@@ -47,10 +53,15 @@ $query_detail = mysqli_query($connect, $sql_detail);
         </tbody>
     </table>
 
-    <?php if ($order_info['order_status'] == 4) { ?>
+    <?php if ($order_info['order_status'] == 1 || $order_info['order_status'] == 4) { ?>
         <form method="post">
-            <button type="submit" name="confirm_received" class="btn btn-success mt-3">
-                Đã nhận hàng
+            <?php if ($order_info['order_status'] == 4) { ?>
+                <button type="submit" name="confirm_received" class="btn btn-success mt-3">
+                    Đã nhận hàng
+                </button>
+            <?php } ?>
+            <button type="submit" name="cancel_order" class="btn btn-danger mt-3 ms-2" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
+                Hủy đơn hàng
             </button>
         </form>
     <?php } ?>
