@@ -1,4 +1,7 @@
 <?php
+// Lấy danh sách danh mục
+$sql = "SELECT * FROM categories ORDER BY category_id ASC LIMIT 8";
+$query = mysqli_query($connect, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +46,18 @@
             </div>
             <div class="grid__column-2-4">
                 <h3 class="footer__heading">Danh mục</h3>
-
+                <ul class="category-list">
+                    <li class="category-item">
+                        <a href="layout_user.php" class="category-item__link">Tất cả sản phẩm</a>
+                    </li>
+                    <?php while ($item = mysqli_fetch_array($query)) { ?>
+                        <li class="category-item">
+                            <a href="?category_id=<?= $item['category_id'] ?>" class="category-item__link">
+                                <?= $item['category_name'] ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
             </div>
             <div class="grid__column-2-4">
                 <h3 class="footer__heading">Theo dõi</h3>
@@ -68,9 +82,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="grid__column-2-4">
-                <h3 class="footer__heading">Vào của hàng trong ứng dụng</h3>
-            </div>
+<!--            <div class="grid__column-2-4">-->
+<!--                <h3 class="footer__heading">Vào của hàng trong ứng dụng</h3>-->
+<!--            </div>-->
         </div>
     </div>
     <div class="footer__bottom">
