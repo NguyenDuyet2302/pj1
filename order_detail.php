@@ -60,9 +60,9 @@ $query_detail = mysqli_query($connect, $sql_detail);
                     Đã nhận hàng
                 </button>
             <?php } ?>
-            <button type="submit" name="cancel_order" class="btn btn-danger mt-3 ms-2" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
-                Hủy đơn hàng
-            </button>
+                <button type="submit" name="cancel_order" class="btn btn-danger mt-3 ms-2" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
+                    Hủy đơn hàng
+                </button>
         </form>
     <?php } ?>
 </div>
