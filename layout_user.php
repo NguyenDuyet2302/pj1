@@ -2,7 +2,7 @@
 session_start();
 ob_start();
 
-include_once('asset/Config/connect.php');
+include_once('Config/connect.php');
 
 ?>
 <!DOCTYPE html>

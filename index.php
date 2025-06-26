@@ -5,8 +5,13 @@ ob_start();
 session_start();
 // khai báo 1 hằng để kiểm soát vc truy cập
 define('SECURITY', true);
-include_once('asset/Config/connect.php');
-include_once('Layout/Master/admin.php');
+include_once('Config/connect.php');
+// kiem tra phien dang nhap
+if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
+    include_once('Layout/Master/admin.php');
+} else {
+    include_once ('Layout/Master/login.php');
+}
 ?>
 
 <?php
