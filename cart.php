@@ -46,48 +46,50 @@ $customer_info = mysqli_fetch_assoc($q_find_cus);
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['order'])) {
     $customer_id = $customer_info['user_id'] ?? null;
     $staff_id = 1;
-
-    // Cấu hình lại múi giờ
     date_default_timezone_set('Asia/Ho_Chi_Minh');
     $date_buy = date('Y-m-d H:i:s');
     $total = $_SESSION['total_price'] ?? 0;
     $order_status = 1;
 
-    // Thêm đơn hàng mới
-    $s_add_order = "INSERT INTO orders (`cus_id`, `staff_id`, `order_date`, `total_price`, `order_status`)
-                    VALUES ($customer_id, $staff_id, '$date_buy', $total, $order_status)";
+    // Lấy thông tin người mua hộ từ form (thay đổi thông tin khách hàng nếu có)
+    $buyer_name = mysqli_real_escape_string($connect, $_POST['customer_name'] ?? '');
+    $buyer_phone = mysqli_real_escape_string($connect, $_POST['customer_phone'] ?? '');
+    $buyer_address = mysqli_real_escape_string($connect, $_POST['customer_address'] ?? '');
+
+    // Thêm đơn hàng mới (lưu thông tin người mua hộ)
+    $s_add_order = "INSERT INTO orders 
+        (`cus_id`, `staff_id`, `order_date`, `total_price`, `order_status`, `buyer_name`, `buyer_phone`, `buyer_address`)
+        VALUES 
+        ($customer_id, $staff_id, '$date_buy', $total, $order_status, '$buyer_name', '$buyer_phone', '$buyer_address')";
+
     $q_add_order = mysqli_query($connect, $s_add_order);
 
     if ($q_add_order) {
-        // Lấy order_id mới nhất
         $ord_id = mysqli_insert_id($connect);
 
         foreach ($_SESSION['cart'] as $book_id => $order_detail_quantity) {
             $book_id = intval($book_id);
-
-            // Lấy thông tin giá sản phẩm
             $s_find_book = "SELECT price, book_qtt FROM books WHERE book_id = $book_id";
             $q_find_book = mysqli_query($connect, $s_find_book);
             $book_info = mysqli_fetch_assoc($q_find_book);
-
             $order_detail_price = $book_info['price'];
             $new_quantity = max(0, $book_info['book_qtt'] - $order_detail_quantity);
 
-            // Cập nhật số lượng sản phẩm tồn kho
             $s_update_prd = "UPDATE books SET book_qtt = $new_quantity WHERE book_id = $book_id";
             mysqli_query($connect, $s_update_prd);
 
-            // Thêm vào bảng order_details
-            $s_add_order_detail = "INSERT INTO order_details (`book_id`, `order_id`, `order_detail_price`, `order_detail_quantity`)
-                                   VALUES ($book_id, $ord_id, $order_detail_price, $order_detail_quantity)";
+            $s_add_order_detail = "INSERT INTO order_details 
+                (`book_id`, `order_id`, `order_detail_price`, `order_detail_quantity`)
+                VALUES 
+                ($book_id, $ord_id, $order_detail_price, $order_detail_quantity)";
             mysqli_query($connect, $s_add_order_detail);
         }
 
-        // Chuyển hướng đến trang thành công
         header('Location: layout_user.php?pageLayout=success');
         exit();
     }
 }
+
 ?>
 
 <!-- Giao diện hiển thị giỏ hàng -->
@@ -140,16 +142,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['order'])) {
                     <form method="POST" action="">
                         <div class="mb-3">
                             <label for="customer_name" class="form-label">Họ tên</label>
-                            <input type="text" class="form-control" name="customer_name" value="<?= htmlspecialchars($customer_info['fullname']) ?>" required>
+                            <input type="text" class="form-control" name="customer_name"
+                                   value="<?= htmlspecialchars($_POST['customer_name'] ?? $customer_info['fullname']) ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="customer_phone" class="form-label">Số điện thoại</label>
-                            <input type="text" class="form-control" name="customer_phone" value="<?= htmlspecialchars($customer_info['contact_info']) ?>" required>
+                            <input type="text" class="form-control" name="customer_phone"
+                                   value="<?= htmlspecialchars($_POST['customer_phone'] ?? $customer_info['contact_info']) ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="customer_address" class="form-label">Địa chỉ</label>
-                            <textarea class="form-control" name="customer_address" rows="3" required><?= htmlspecialchars($customer_info['shipping_address']) ?></textarea>
+                            <textarea class="form-control" name="customer_address" rows="3" required><?= htmlspecialchars($_POST['customer_address'] ?? $customer_info['shipping_address']) ?></textarea>
                         </div>
+
                         <button type="submit" name="order" class="btn btn-success w-100">Đặt hàng</button>
                     </form>
                 </div>
