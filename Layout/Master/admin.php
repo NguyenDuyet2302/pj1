@@ -47,20 +47,21 @@
         <h3 class="text-center">Quản Lý Sách </h3>
         <ul class="nav flex-column">
             <!--                <li class="nav-item"><a class="nav-link text-white" href="?page=dashboard">Trang chủ</a></li>-->
+            <h5 class="nav-item"><a class="nav-link text-white" href="?page=dashboard">Trang chủ</a></h5>
 
-            <h5 class="text-white mt-3">🔹 Quản lý danh mục</h5>
-            <li class="nav-item"><a class="nav-link text-white" href="?page=categories">Danh mục sản phẩm</a></li>
+            <!--                <h5 class="text-white mt-3">🔹 Quản lý danh mục</h5>-->
+            <h5 class="nav-item"><a class="nav-link text-white" href="?page=categories">Quản lý danh mục</a></h5>
 
-            <h5 class="text-white mt-3">🔹 Quản lý sản phẩm</h5>
-            <li class="nav-item"><a class="nav-link text-white" href="?page=books">Danh sách sản phẩm</a></li>
+            <!--                <h5 class="text-white mt-3">🔹 Quản lý sản phẩm</h5>-->
+            <h5  class="nav-item"><a class="nav-link text-white" href="?page=books">Quản lý sản phẩm</a></h5>
 
-            <h5 class="text-white mt-3">🔹 Quản lý đơn hàng</h5>
-            <li class="nav-item"><a class="nav-link text-white" href="?page=orders">Danh sách đơn hàng</a></li>
+            <!--                <h5 class="text-white mt-3">🔹 Quản lý đơn hàng</h5>-->
+            <h5  class="nav-item"><a class="nav-link text-white" href="?page=orders">Quản lý đơn hàng</a></h5>
             <!--                <li class="nav-item"><a class="nav-link text-white" href="?page=order_details">Chi tiết đơn hàng</a></li>-->
 
-            <h5 class="text-white mt-3">🔹 Quản lý người dùng</h5>
-            <li class="nav-item"><a class="nav-link text-white" href="?page=customers">Danh sách khách hàng</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="?page=users">Danh sách nhân viên</a></li>
+            <!--                <h5 class="text-white mt-3">🔹 Quản lý người dùng</h5>-->
+            <!--                <li class="nav-item"><a class="nav-link text-white" href="?page=customers">Danh sách khách hàng</a></li>-->
+            <h5  class="nav-item"><a class="nav-link text-white" href="?page=users">Quản lý người dùng</a></h5>
 
             <!--                <h5 class="text-white mt-3">🔹 Báo cáo & Thống kê</h5>-->
             <!--                <li class="nav-item"><a class="nav-link text-white" href="?page=table">B-->
@@ -73,17 +74,14 @@
     $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 
     switch ($page) {
-//        case 'dashboard':
-//                include 'Layout/dashboard.php';
-//                break;
+        case 'dashboard':
+            include 'Layout/Master/dashboard.php';
+            break;
         case 'categories':
             include 'Layout/Category/categories.php';
             break;
         case 'books':
             include 'Layout/Product/books.php';
-            break;
-        case 'edit_product':
-            include 'Layout/Product/edit_product.php';
             break;
         case 'delete_product':
             include 'Layout/Product/delete_product.php';
@@ -104,7 +102,7 @@
 //                include 'Table/statistics.php';
 //                break;
         default:
-            echo " <h2 style=\"text-align: center; margin-left: 600px;\">Chào mừng bạn đến với trang quản trị</h2>";
+            echo " <h2 style=\"text-align: center; margin-left: 600px;\">Trang không tồn tại</h2>";
             break;
     }
     ?>

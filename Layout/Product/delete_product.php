@@ -3,7 +3,7 @@
 $server = 'localhost'; // Tham số thứ 1 là máy chủ my sql
 $username = 'root'; // tham số thứ 2 là tài khoản quản trị csdl
 $password = ''; // tham số thứ 3 là mật khẩu quản trị csdl
-$database = 'pj1(1)'; // tham số thứ 4 là csdl cần kết nối
+$database = 'pj1'; // tham số thứ 4 là csdl cần kết nối
 $connect = mysqli_connect($server, $username, $password, $database);
 
 
