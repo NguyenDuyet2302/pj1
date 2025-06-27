@@ -30,7 +30,7 @@ $query_detail = mysqli_query($connect, $sql_detail);
 if (isset($_POST['cancel_order'])) {
     $check = mysqli_fetch_assoc(mysqli_query($connect, "SELECT order_status FROM orders WHERE order_id = '$order_id'"));
 
-    // Chỉ cho hủy nếu đơn vẫn còn ở trạng thái CHỜ DUYỆT (1)
+    // Chỉ cho hủy nếu đơn vẫn còn ở trạng thái CHỜ DUYỆT
     if ($check['order_status'] == 1) {
         $update_status = "UPDATE orders SET order_status = 6 WHERE order_id = '$order_id'";
         mysqli_query($connect, $update_status);
