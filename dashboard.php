@@ -3,7 +3,7 @@
 $category_id = isset($_GET['category_id']) ? $_GET['category_id'] : '';
 
 // Lấy danh sách danh mục
-$sql = "SELECT * FROM categories ORDER BY category_id ASC LIMIT 8";
+$sql = "SELECT * FROM categories ORDER BY category_id ASC";
 $query = mysqli_query($connect, $sql);
 
 // Truy vấn sản phẩm theo danh mục được chọn
@@ -11,7 +11,7 @@ $sql_product = "SELECT * FROM books";
 if ($category_id) {
     $sql_product .= " WHERE category_id = '$category_id'";
 }
-$sql_product .= " ORDER BY book_id DESC LIMIT 8"; // Chỉ lấy 8 sản phẩm
+$sql_product .= " ORDER BY book_id DESC";
 $query_product = mysqli_query($connect, $sql_product);
 ?>
 
