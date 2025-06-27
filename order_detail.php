@@ -28,12 +28,16 @@ $sql_detail = "SELECT order_details.*, books.title, books.image_url, books.price
 $query_detail = mysqli_query($connect, $sql_detail);
 
 if (isset($_POST['cancel_order'])) {
-    $check_status = mysqli_fetch_assoc(mysqli_query($connect, "SELECT order_status FROM orders WHERE order_id = '$order_id'"));
-    if ($check_status['order_status'] == 1) {
+    $check = mysqli_fetch_assoc(mysqli_query($connect, "SELECT order_status FROM orders WHERE order_id = '$order_id'"));
+
+    // Chỉ cho hủy nếu đơn vẫn còn ở trạng thái CHỜ DUYỆT (1)
+    if ($check['order_status'] == 1) {
         $update_status = "UPDATE orders SET order_status = 6 WHERE order_id = '$order_id'";
         mysqli_query($connect, $update_status);
+        header("Location: order_detail.php?order_id=$order_id");
+        exit();
     } else {
-        echo "<script>alert('Không thể hủy đơn hàng này vì đơn đã được duyệt hoặc xử lý.');</script>";
+        echo "<script>alert('Đơn hàng đang được xử lý. Không thể hủy vào lúc này!');</script>";
     }
 }
 ?>
