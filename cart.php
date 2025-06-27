@@ -136,29 +136,72 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['order'])) {
             </div>
 
             <!-- Phần thông tin khách hàng -->
-            <div class="col-lg-4 mt-4 mt-lg-0">
-                <div class="card p-4 shadow-sm">
-                    <h4 class="mb-3">Thông tin khách hàng</h4>
-                    <form method="POST" action="">
+            <!-- Bắt đầu FORM -->
+            <form method="POST" action="">
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="card p-4 shadow-sm">
+                        <h4 class="mb-3">Thông tin khách hàng</h4>
+
+                        <!-- Thông tin người đặt -->
                         <div class="mb-3">
                             <label for="customer_name" class="form-label">Họ tên</label>
                             <input type="text" class="form-control" name="customer_name"
                                    value="<?= htmlspecialchars($_POST['customer_name'] ?? $customer_info['fullname']) ?>" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="customer_phone" class="form-label">Số điện thoại</label>
                             <input type="text" class="form-control" name="customer_phone"
                                    value="<?= htmlspecialchars($_POST['customer_phone'] ?? $customer_info['contact_info']) ?>" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="customer_address" class="form-label">Địa chỉ</label>
                             <textarea class="form-control" name="customer_address" rows="3" required><?= htmlspecialchars($_POST['customer_address'] ?? $customer_info['shipping_address']) ?></textarea>
                         </div>
 
+                        <!-- Checkbox mua hộ -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="is_proxy" onclick="toggleProxyFields()">
+                            <label class="form-check-label" for="is_proxy">Đặt hộ cho người khác</label>
+                        </div>
+
+                        <!-- Thông tin người nhận hộ (ẩn mặc định) -->
+                        <div id="proxy-fields" style="display: none;">
+                            <hr>
+                            <h5 class="mb-3">Thông tin người nhận hộ</h5>
+
+                            <div class="mb-3">
+                                <label for="proxy_name" class="form-label">Tên người nhận hộ</label>
+                                <input type="text" class="form-control" name="proxy_name"
+                                       value="<?= htmlspecialchars($_POST['proxy_name'] ?? '') ?>">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="proxy_phone" class="form-label">Số điện thoại người nhận hộ</label>
+                                <input type="text" class="form-control" name="proxy_phone"
+                                       value="<?= htmlspecialchars($_POST['proxy_phone'] ?? '') ?>">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="proxy_address" class="form-label">Địa chỉ người nhận hộ</label>
+                                <textarea class="form-control" name="proxy_address" rows="2"><?= htmlspecialchars($_POST['proxy_address'] ?? '') ?></textarea>
+                            </div>
+                        </div>
+
                         <button type="submit" name="order" class="btn btn-success w-100">Đặt hàng</button>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
+
+            <!-- JavaScript để bật/tắt phần người nhận hộ -->
+            <script>
+                function toggleProxyFields() {
+                    const checkbox = document.getElementById("is_proxy");
+                    const proxyFields = document.getElementById("proxy-fields");
+                    proxyFields.style.display = checkbox.checked ? "block" : "none";
+                }
+            </script>
         </div>
     </form>
 </div>
